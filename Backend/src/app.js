@@ -12,7 +12,7 @@ import cookieparser from 'cookie-parser'
 dotenv.config();
 const app=express();
 app.use(cors({
-  origin: "http://localhost:5173", 
+  origin: true, 
   credentials: true               
 }));
 app.use(express.json());
@@ -128,7 +128,7 @@ app.post('/login', async (req,res)=>{
         const token= await jwt.sign(tokenData,process.env.SECRET_KEY,{expiresIn:'1d'});
 
         
-        return res.status(200).cookie("token",token,{maxAge:1*24*60*60*1000,httpOnly:true,sameSite:'lax',secure:false}).json({
+        return res.status(200).cookie("token",token,{maxAge:1*24*60*60*1000,httpOnly:true,sameSite:'none',secure:true}).json({
             message:"User found",
             success:true,
             user,
