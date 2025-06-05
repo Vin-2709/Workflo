@@ -119,8 +119,7 @@ import '../others/taskcard.css'
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
 axios.defaults.withCredentials = true;
-import dotenv from 'dotenv';
-dotenv.config({});
+
 
 
 const EmployeeDashboard = ({changeUser,userdata}) => {

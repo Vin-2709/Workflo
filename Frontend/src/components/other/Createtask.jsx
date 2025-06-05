@@ -3,8 +3,7 @@ import { useState } from 'react'
 import { useNavigate,useParams,Link } from 'react-router-dom'
 import axios from 'axios';
 import logo from '../../pages/Images/logo2.png'
-import dotenv from 'dotenv';
-dotenv.config({});
+
 
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";

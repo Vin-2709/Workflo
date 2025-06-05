@@ -3,8 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom'
 import { setDefaultLocale } from "react-datepicker";
-import dotenv from 'dotenv';
-dotenv.config({});
+
 
 const Register = () => {
   const [name, setName] = useState("");

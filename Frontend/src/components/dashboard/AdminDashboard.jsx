@@ -8,8 +8,7 @@ import { Link, useParams } from 'react-router-dom'
 import ActiveTasks from '../others/ActiveTask'
 import FailedTask from '../others/FailedTask'
 import CompletedTask from '../others/CompletedTask';
-import dotenv from 'dotenv';
-dotenv.config({});
+
 
 
 const AdminDashboard = ({changeUser,userdata}) => {

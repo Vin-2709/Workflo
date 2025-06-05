@@ -4,8 +4,7 @@ import { useNavigate,useParams } from 'react-router-dom'
 import logo from '../../pages/Images/logo2.png'
 import axios from 'axios';
 axios.defaults.withCredentials = true;
-import dotenv from 'dotenv';
-dotenv.config({});
+
 
 
 const Header = ({changeUser,name}) => {

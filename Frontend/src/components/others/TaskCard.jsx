@@ -84,8 +84,7 @@ import React ,{useState,useEffect}from 'react'
 import './taskcard.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import dotenv from 'dotenv';
-dotenv.config({});
+
 
 
 const TaskCard= ({data,onstatusUpdate})=>{
