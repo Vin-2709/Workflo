@@ -8,7 +8,7 @@ import {  Routes, Route,useParams } from 'react-router-dom';
 import Create from './components/other/Createtask.jsx';
 import Dashboard from './components/other/Dashboard.jsx';
 import Home from './pages/Home.jsx';
-import Edittask from './pages/edittask.jsx';
+import Edittask from './pages/Edittask.jsx';
 
 
 
