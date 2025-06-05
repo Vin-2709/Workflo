@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { useNavigate,useParams,Link } from 'react-router-dom'
 import axios from 'axios';
 import logo from '../../pages/Images/logo2.png'
+import dotenv from 'dotenv';
+dotenv.config({});
 
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -22,7 +24,7 @@ const Create = () => {
     const submitHandler=async(e)=>{
         try {
              e.preventDefault();
-        const response=await axios.post(`https://task-management-theta-pied.vercel.app/admin/${id}/assigntask`,{ 
+        const response=await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/${id}/assigntask`,{ 
            name,
            email,
            domain,

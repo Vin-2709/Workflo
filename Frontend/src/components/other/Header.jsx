@@ -4,6 +4,8 @@ import { useNavigate,useParams } from 'react-router-dom'
 import logo from '../../pages/Images/logo2.png'
 import axios from 'axios';
 axios.defaults.withCredentials = true;
+import dotenv from 'dotenv';
+dotenv.config({});
 
 
 const Header = ({changeUser,name}) => {
@@ -11,7 +13,7 @@ const Header = ({changeUser,name}) => {
   const navigate=useNavigate();
   const logOutUser = async() => {
   changeUser(null);
-  await axios.get(`https://task-management-theta-pied.vercel.app/logout/${id}/`);
+  await axios.get(`${import.meta.env.VITE_BACKEND_URL}/logout/${id}/`);
   navigate('/home');
   }
 

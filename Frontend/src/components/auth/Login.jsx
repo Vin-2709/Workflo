@@ -3,6 +3,8 @@ import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import { Link,useNavigate,useParams } from 'react-router-dom'
+import dotenv from 'dotenv';
+dotenv.config({});
 
 
 const Login = ({ loggedinuser }) => {
@@ -15,7 +17,7 @@ const Login = ({ loggedinuser }) => {
   const submitHandler = async (e) => {
     e.preventDefault() 
     try {
-      const response = await axios.post('https://task-management-theta-pied.vercel.app/login', {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, {
         email,
         password,
         role,

@@ -7,7 +7,9 @@ import Dashboard from '../other/Dashboard'
 import { Link, useParams } from 'react-router-dom'
 import ActiveTasks from '../others/ActiveTask'
 import FailedTask from '../others/FailedTask'
-import CompletedTask from '../others/CompletedTask'
+import CompletedTask from '../others/CompletedTask';
+import dotenv from 'dotenv';
+dotenv.config({});
 
 
 const AdminDashboard = ({changeUser,userdata}) => {
@@ -23,7 +25,7 @@ const AdminDashboard = ({changeUser,userdata}) => {
 
    const getUser = async () => {
       try {
-        const res = await axios.get(`https://task-management-theta-pied.vercel.app/admin/${id}`);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/${id}`);
         setUser(res.data.user);
         changeUser(res.data.user); 
       } catch (err) {
@@ -33,7 +35,7 @@ const AdminDashboard = ({changeUser,userdata}) => {
 
     const getstatus= async()=>{
        try {
-          const response=await axios.get(`https://task-management-theta-pied.vercel.app/admin/gettask/${id}`)
+          const response=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/gettask/${id}`)
           console.log(response);
           setTasks(response.data.tasks)
        } catch (error) {
@@ -48,7 +50,7 @@ const AdminDashboard = ({changeUser,userdata}) => {
         const deadline=new Date(task.deadline);
         deadline.setHours(0,0,0,0);
         if(deadline<today && task.status !=="Completed " && task.status !="Failed"){
-          await axios.post(`https://task-management-theta-pied.vercel.app/taskstatusupdate/${task._id}`, {Status:"Failed"});
+          await axios.post(`${import.meta.env.VITE_BACKEND_URL}/taskstatusupdate/${task._id}`, {Status:"Failed"});
         }
        });
     }

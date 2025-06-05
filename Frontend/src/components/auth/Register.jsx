@@ -3,6 +3,8 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom'
 import { setDefaultLocale } from "react-datepicker";
+import dotenv from 'dotenv';
+dotenv.config({});
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -16,7 +18,7 @@ const Register = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://task-management-theta-pied.vercel.app/register', { name, email, password, role, domain });
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, { name, email, password, role, domain });
       console.log(response);
       setEmail("");
       setName("");

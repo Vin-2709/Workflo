@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Navigate,useNavigate,useParams,Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker'; 
 import "react-datepicker/dist/react-datepicker.css"; 
+import dotenv from 'dotenv';
+dotenv.config({});
 
 
 
@@ -29,7 +31,7 @@ const Edittask=()=>{
     const gettask=async()=>{
        
         try {
-            const response = await axios.get(`https://task-management-theta-pied.vercel.app/task/${id}`);
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/task/${id}`);
             if (response.data.success) {
                 const taskdata = response.data.task;
                 setFormdata({
@@ -64,7 +66,7 @@ const Edittask=()=>{
     const submitHandler=async(e)=>{
         e.preventDefault();
         try {
-            const response=await axios.put(`https://task-management-theta-pied.vercel.app/edit-task/${id}`,{ 
+            const response=await axios.put(`${import.meta.env.VITE_BACKEND_URL}/edit-task/${id}`,{ 
                 domain:formdata.domain,
                 deadline:formdata.deadline,
                 description:formdata.description

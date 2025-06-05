@@ -84,6 +84,8 @@ import React ,{useState,useEffect}from 'react'
 import './taskcard.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import dotenv from 'dotenv';
+dotenv.config({});
 
 
 const TaskCard= ({data,onstatusUpdate})=>{
@@ -104,7 +106,7 @@ const TaskCard= ({data,onstatusUpdate})=>{
          }
          
         
-         const response=await axios.post(`https://task-management-theta-pied.vercel.app/taskstatusupdate/${data._id}`,{
+         const response=await axios.post(`${import.meta.env.VITE_BACKEND_URL}/taskstatusupdate/${data._id}`,{
             Status:newStatus,
          });
          console.log(response);
