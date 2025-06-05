@@ -4,7 +4,7 @@
   "description": "creating a git branch fullstack1 to convert it to full stack project",
   "main": "index.js",
   "scripts": {
-    "start":"npm index.js",
+    "start":"node index.js",
     "dev":"nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
