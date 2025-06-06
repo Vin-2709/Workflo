@@ -113,12 +113,12 @@ const TaskCard= ({data,onstatusUpdate})=>{
   
 
     return (
-        <div className= ' flex flex-col justify-between  bg-blue-200 text-black m-2 p-4 h-[380px] rounded-lg min-w-[400px] shadow-lg shadow-blue-700 mt-8  hover:scale-105 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 ease-out cursor-pointer'>
-            <div className='flex  flex-col p-2'>
+        <div className= ' flex flex-col bg-blue-200 text-black m-2 p-4 h-[380px] rounded-lg min-w-[400px] shadow-lg shadow-blue-700 mt-8  hover:scale-105 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 ease-out cursor-pointer'>
+            <div className='flex  flex-col p-2  flex-1 overflow-hidden'>
             <h1 className='font-bold '>Domain  : {data.domain}</h1>
                 <p className='text-wrap mt-3'> 
                     <span className='font-bold'>Description :</span>
-                    <span className='block'>{data.description}</span>
+                    <span className='block line-clamp-4 text-sm'>{data.description}</span>
                 </p>
             <h1 className='font-bold mt-3' >Deadline : {new Date(data.deadline).toLocaleDateString('en-GB')}</h1>
             <h1 className='font-bold mt-3'>Status : {status}</h1>
@@ -127,12 +127,12 @@ const TaskCard= ({data,onstatusUpdate})=>{
             <div className='flex justify-center gap-30 mt-3 '>
                 {status=="Failed"?(
                     <div className='flex justify-center'>
-                        <div className=' h-7 w-24 bg-red-600 text-white text-center rounded-md'><h1>Failed</h1></div>
+                        <div className=' h-7 w-24 bg-red-600 text-white text-center rounded-md flex-shrink-0'><h1>Failed</h1></div>
                     </div>
                     
                 ):(<>
-                {status!="Completed" && status!="Failed"? (<button onClick={()=>statusUpdate("Completed")} className='bg-green-600 text-white p-[2px] w-25 rounded-md shadow-md shadow-green-900 h-11 text-[14px] cursor-pointer '>Mark as Completed</button>):(<button onClick={()=>statusUpdate("Pending")} className='bg-yellow-500 text-white p-[2px] w-25 rounded-md shadow-md shadow-green-900 h-11 text-[14px] cursor-pointer '> Mark As Pending</button>)}  
-                {status!="Failed" ? (<button onClick={()=>statusUpdate("Failed")} className='bg-red-600 text-white p-[3px] w-25 rounded-md shadow-md shadow-red-900 h-11 text-[14px] cursor-pointer' >Mark as Failed</button>):(<button  className='bg-red-800 text-white p-[3px] w-25 rounded-md shadow-red-900 h-11 text-[14px] '>Failed</button>)}</>)}
+                {status!="Completed" && status!="Failed"? (<button onClick={()=>statusUpdate("Completed")} className='bg-green-600 text-white p-[2px] w-25 rounded-md shadow-md shadow-green-900 h-11 text-[14px] cursor-pointer flex-shrink-0'>Mark as Completed</button>):(<button onClick={()=>statusUpdate("Pending")} className='bg-yellow-500 text-white p-[2px] w-25 rounded-md shadow-md shadow-green-900 h-11 text-[14px] cursor-pointer '> Mark As Pending</button>)}  
+                {status!="Failed" ? (<button onClick={()=>statusUpdate("Failed")} className='bg-red-600 text-white p-[3px] w-25 rounded-md shadow-md shadow-red-900 h-11 text-[14px] cursor-pointer flex-shrink-0' >Mark as Failed</button>):(<button  className='bg-red-800 text-white p-[3px] w-25 rounded-md shadow-red-900 h-11 text-[14px] '>Failed</button>)}</>)}
             </div>
         </div>
     )
