@@ -176,7 +176,7 @@ const EmployeeDashboard = ({changeUser,userdata}) => {
    }
 
   return (
-    <div className=' bg-radial-[at_50%_75%] from-sky-200 via-blue-400 to-indigo-400 to-90% h-screen overflow-hidden'>
+    <div className='  h-screen overflow-hidden'>
         <Header changeUser={changeUser} name={user?.name || userdata?.username} /> 
 
         <div className='flex justify-between p-10 mt-6 w-full'>
