@@ -366,6 +366,8 @@ app.put('/edit-task/:id',isLogged, async (req, res) => {
     }
 });
 
+app.post("/upload", isLogged,upload.single(""))
+
 
 
 export default app;

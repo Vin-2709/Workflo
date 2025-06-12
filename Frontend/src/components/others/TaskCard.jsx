@@ -113,7 +113,7 @@ const TaskCard= ({data,onstatusUpdate})=>{
   
 
     return (
-        <div className= ' flex flex-col bg-blue-200 text-black m-2 p-4 h-[380px] rounded-lg min-w-[400px] shadow-lg shadow-blue-700 mt-8  hover:scale-105 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 ease-out cursor-pointer'>
+        <div className= ' flex flex-col bg-white text-black m-2 p-4 h-[380px] rounded-lg min-w-[400px] shadow-lg shadow-blue-700 mt-8  hover:scale-105 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 ease-out cursor-pointer'>
             <div className='flex  flex-col p-2  flex-1 overflow-hidden'>
             <h1 className='font-bold '>Domain  : {data.domain}</h1>
                 <p className='text-wrap mt-3'> 
