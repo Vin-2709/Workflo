@@ -78,7 +78,7 @@ const AdminDashboard = ({changeUser,userdata}) => {
     <div className=' bg-radial-[at_50%_75%] from-sky-400 via-blue-400 to-indigo-500 to-90% min-h-screen w-auto overflow-auto   '>
       <Header changeUser={changeUser} name={user?.name || userdata?.username} /> 
       <div className='bg-radial-[at_50%_75%] from-blue-400 via-blue-800 to-blue-900 to-90% mt-15 w-[1250px] ml-30 p-9 rounded-3xl h-[500px] shadow-lg shadow-indigo-900'>
-      <div className='flex justify-center gap-5'>
+      <div className='flex justify-center gap-5 ml-10'>
           <ChartNoAxesCombined size={45} color='white' className='mt-2'/>
           <h1 className=' text-white  font-serif text-[45px] font-bold text-center  [text-shadow:2px_2px_8px_rgba(0,0,0,0.7)]'>Dashboard  Overview</h1>
       </div>
