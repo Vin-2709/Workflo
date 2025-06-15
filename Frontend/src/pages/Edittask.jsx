@@ -6,7 +6,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 
-
 const Edittask=()=>{
     const [error, setError]=useState('');
     const [message,setMessage]=useState('');
@@ -16,7 +15,8 @@ const Edittask=()=>{
         email: '',
         domain: '',
         description: '',
-        deadline: new Date(), // Fixed: Initialize as Date object
+        deadline: new Date(),
+        status:'Pending'
         
     })
     const {id}=useParams();
@@ -37,8 +37,9 @@ const Edittask=()=>{
                     name: taskdata.assignedTo?.name || "",
                     email: taskdata.assignedTo?.email || "",
                     domain: taskdata?.domain || "",
-                    deadline: taskdata?.deadline ? new Date(taskdata.deadline) : new Date(), // Fixed: Convert to Date
+                    deadline: taskdata?.deadline ? new Date(taskdata.deadline) : new Date(), 
                     description: taskdata?.description || "",
+                    status:"Pending"
                     
 
                 })
@@ -49,7 +50,7 @@ const Edittask=()=>{
         catch (error) {
                console.log(error);
                setMessage("");
-               setError(error.response?.data?.message || "Error occurred"); // Fixed: Use error.response
+               setError(error.response?.data?.message || "Error occurred"); /
             }
         
 
@@ -97,7 +98,7 @@ const Edittask=()=>{
 
                         <label className="py-1 mt-5 font-medium">Domain</label>
                            <select id="domain" name="domain" value={formdata.domain}
-onChange={(e) => setFormdata({ ...formdata, domain: e.target.value })}  className='py-2 font-medium outline-none w-80 rounded-md p-2 border-1'>
+                                onChange={(e) => setFormdata({ ...formdata, domain: e.target.value })}  className='py-2 font-medium outline-none w-80 rounded-md p-2 border-1'>
                                 <option value=""> Select Domain </option> 
                                 <option value="Development">Development</option>
                                 <option value="Marketing">Marketing</option>

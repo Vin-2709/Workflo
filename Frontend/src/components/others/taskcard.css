@@ -1,13 +1,12 @@
 .scrollbar-minimal {
-  /* Firefox */
+
   scrollbar-width: thin;
   scrollbar-color: rgb(245, 237, 237) transparent;
 }
 
-/* Webkit browsers (Chrome, Safari, Edge) */
 .scrollbar-minimal::-webkit-scrollbar {
-  height: 4px; /* for horizontal scrollbar */
-  width: 4px;  /* for vertical scrollbar */
+  height: 4px; 
+  width: 4px;  
 }
 
 .scrollbar-minimal::-webkit-scrollbar-track {

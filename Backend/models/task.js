@@ -25,8 +25,11 @@ const taskSchema=mongoose.Schema({
     status:{
       type:String,
       default:"Incompleted"
-    }
-},{timeStamps:true})
+    },
+    adminFiles:[String],
+    employeeFiles:[String]
+
+},{timestamps:true})
 
 const task=mongoose.model('task',taskSchema);
 export default task;

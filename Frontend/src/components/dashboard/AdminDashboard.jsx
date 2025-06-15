@@ -1,6 +1,6 @@
 
-import React, { useState, useEffect } from 'react' // Added useEffect
-import axios from 'axios' // Added axios import
+import React, { useState, useEffect } from 'react' 
+import axios from 'axios' 
 axios.defaults.withCredentials = true;
 import Header from '../other/Header'
 import Dashboard from '../other/Dashboard'
@@ -8,6 +8,8 @@ import { Link, useParams } from 'react-router-dom'
 import ActiveTasks from '../others/ActiveTask'
 import FailedTask from '../others/FailedTask'
 import CompletedTask from '../others/CompletedTask';
+import AdminModal from '../Modal/AdminModal';
+import { ChartNoAxesCombined } from 'lucide-react';
 
 
 
@@ -16,6 +18,8 @@ const AdminDashboard = ({changeUser,userdata}) => {
   const { id } = useParams();
   const [user, setUser] = useState(null); 
   const [tasks,setTasks]=useState([]);
+  const [modalTask,setModalTask]=useState(null);
+  const [showModal,setShowModal]=useState(false);
   useEffect(() => {
     getstatus();
     getUser();
@@ -54,24 +58,51 @@ const AdminDashboard = ({changeUser,userdata}) => {
        });
     }
 
+   const openModal=(task)=>{
+     setModalTask(task);
+     setShowModal(true);
+   }
+
+   const closeModal=(task)=>{
+    setModalTask(null);
+    setShowModal(false);
+   }
+
+   const onAdminUploadSuccess = () => {
+    getstatus(); 
+  };
+
   if (!user) return <div className="text-white">Loading...</div>;
   
   return (
     <div className=' bg-radial-[at_50%_75%] from-sky-400 via-blue-400 to-indigo-500 to-90% min-h-screen w-auto overflow-auto   '>
       <Header changeUser={changeUser} name={user?.name || userdata?.username} /> 
-      <h1 className=' text-white  font-serif text-[45px] font-bold text-center mt-8 [text-shadow:2px_2px_8px_rgba(0,0,0,0.7)]'>Dashboard  Overview</h1>
-      <div className='flex justify-center mt-8'>
+      <div className='bg-radial-[at_50%_75%] from-blue-400 via-blue-800 to-blue-900 to-90% mt-15 w-[1250px] ml-30 p-9 rounded-3xl h-[500px] shadow-lg shadow-indigo-900'>
+      <div className='flex justify-center gap-5'>
+          <ChartNoAxesCombined size={45} color='white' className='mt-2'/>
+          <h1 className=' text-white  font-serif text-[45px] font-bold text-center  [text-shadow:2px_2px_8px_rgba(0,0,0,0.7)]'>Dashboard  Overview</h1>
+      </div>
+      
+      <div className='flex justify-center mt-10'>
         <Link to={`/createtask/${id}`}><button className='bg-green-600 text-white w-[125px] h-[40px]  mx-10 rounded-md font-bold cursor-pointer shadow-md shadow-black '> + Assign Task</button></Link>
       </div>
       
 
-      <div className='flex justify-center gap-8 mt-10'>
+      <div className='flex justify-center gap-8 mt-20'>
         <ActiveTasks data={tasks}/>
         <CompletedTask data={tasks}/>
         <FailedTask data={tasks}/> 
       </div>
+      </div>
       
-      <Dashboard/>
+      <Dashboard openModal={openModal}/>
+      {showModal && (
+        <AdminModal
+          task={modalTask}
+          onClose={closeModal}
+          onUploadSuccess={onAdminUploadSuccess}
+        />
+      )}
    </div>
   )
 }

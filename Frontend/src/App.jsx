@@ -11,11 +11,6 @@ import Home from './pages/Home.jsx';
 import Edittask from './pages/Edittask.jsx';
 
 
-
-
-
-
-
 const app=()=>{
   const [user,setUser]=useState('');
   return  (

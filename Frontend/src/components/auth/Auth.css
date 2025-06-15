@@ -1,0 +1,25 @@
+/* Global scrollbar settings for Firefox */
+body, html {
+  scrollbar-width: thin; /* Makes scrollbar thinner */
+  scrollbar-color: rgba(120, 120, 120, 0.5) transparent; /* Thumb + Track */
+}
+
+/* Webkit browsers (Chrome, Edge, Safari) */
+body::-webkit-scrollbar {
+  width: 6px; /* Slightly thin, still visible */
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(120, 120, 120, 0.5);  /* Soft visible gray */
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 1px solid transparent;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(120, 120, 120, 0.7);
+}

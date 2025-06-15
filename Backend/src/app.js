@@ -7,12 +7,15 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import cookieparser from 'cookie-parser'
+import { Uploadmulter } from './middlewares/multer.js';
+import { Uploadcloudinary} from '../utils/cloudinary.js'
+
 
 
 dotenv.config();
 const app=express();
 app.use(cors({
-  origin: true, 
+  origin: true,
   credentials: true               
 }));
 app.use(express.json());
@@ -221,45 +224,55 @@ app.get('/employee/:id',isLogged, async (req,res)=>{
 
 
 
-app.post('/admin/:id/assigntask',isLogged,async(req,res)=>{
+//    
+app.post('/admin/:id/assigntask', isLogged,  Uploadmulter.array("files", 5), async (req, res) => {
     try {
-        let{name,email,domain,description,deadline}=req.body;
-        if(!name || !email  || !description   ||!domain || !deadline) return res.status(401).json({
-            message:"Please fill all the input fields",
-            success:false
-        })
-        const employee=await employeeModel.findOne({email});
-        if(!employee) return res.status(400).json({
-            message:"User not found",
-            success:false
-        })
-        if(employee.role=='admin') return res.status(400).json({
-            message:"Employee not found",
-            success:false
-        })
+        let { name, email, domain, description, deadline } = req.body;
+        if (!name || !email || !description || !domain || !deadline) return res.status(401).json({
+            message: "Please fill all the input fields",
+            success: false
+        });
+
+        const employee = await employeeModel.findOne({ email });
+        if (!employee || employee.role === 'admin') return res.status(400).json({
+            message: "Employee not found",
+            success: false
+        });
+
+        let fileUrls = [];
+        if (req.files && req.files.length > 0) {
+            for (const file of req.files) {
+                const result = await Uploadcloudinary(file.path);
+                if (result?.secure_url) fileUrls.push(result.secure_url);
+            }
+        }
+
         const taskcreated = await taskmodel.create({
             assignedBy: req.params.id,
-            assignedTo: employee._id,  
+            assignedTo: employee._id,
             domain,
             description,
             deadline,
-            status: "Pending"        
-        })
+            status: "Pending",
+            adminFiles: fileUrls,
+            employeeFiles: []
+        });
+
         return res.status(200).json({
-            message:"Task Assigned",
-            success:true,
+            message: "Task Assigned",
+            success: true,
             taskcreated
-            
-        })
+        });
     } catch (error) {
         console.error(error);
+        return res.status(500).json({ message: "Server error", success: false });
     }
-})
+});
 
 app.post('/taskstatusupdate/:id' ,isLogged,async (req,res)=>{
        let{Status}=req.body;
        const update=await taskmodel.findOneAndUpdate(
-        {_id:req.params.id},{status:Status}
+        {_id:req.params.id},{status:Status},{new:true}
        ).sort({createdAt:-1});  
        return res.status(200).json({
         message:"updated status",
@@ -340,7 +353,7 @@ app.get("/delete/:id",isLogged,async (req,res)=>{
 
 })
 
-app.put('/edit-task/:id',isLogged, async (req, res) => {
+app.put('/edit-task/:id',isLogged,  async (req, res) => {
     try {
         const { id } = req.params;
         const { domain, deadline, description, } = req.body;
@@ -351,6 +364,7 @@ app.put('/edit-task/:id',isLogged, async (req, res) => {
                 domain, 
                 deadline, 
                 description, 
+                status: "Pending"  
                
             },
             { new: true }
@@ -366,8 +380,92 @@ app.put('/edit-task/:id',isLogged, async (req, res) => {
     }
 });
 
-app.post("/upload", isLogged,upload.single(""))
 
+
+// Upload file by admin
+app.post("/admin-upload/:taskId", isLogged,  Uploadmulter.array("files", 5), async (req, res) => {
+    try {
+        if (!req.files || req.files.length === 0) return res.status(400).json({ success: false, message: "No file" });
+
+        const uploadedUrls = [];
+        for (const file of req.files) {
+            const result = await Uploadcloudinary(file.path);
+            if (result?.secure_url) {
+                uploadedUrls.push(result.secure_url);
+            }
+        }
+
+        if (uploadedUrls.length === 0) return res.status(500).json({ success: false, message: "Upload failed" });
+
+        const task = await taskmodel.findById(req.params.taskId);
+        task.adminFiles.push(...uploadedUrls);
+        await task.save();
+
+        res.json({ success: true, urls: uploadedUrls, type: "admin" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: "Error" });
+    }
+});
+
+// Upload file by employee
+app.post("/employee-upload/:taskId", isLogged, Uploadmulter.array("files", 5), async (req, res) => {
+  try {
+    console.log("Employee upload request received");
+    console.log("Files received:", req.files?.length || 0);
+    
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ success: false, message: "No files uploaded" });
+    }
+
+    const uploadedUrls = [];
+    const failedUploads = [];
+
+    for (const file of req.files) {
+      console.log("Processing file:", file.filename, "at path:", file.path);
+      
+      const result = await Uploadcloudinary(file.path);
+      if (result?.secure_url) {
+        uploadedUrls.push(result.secure_url);
+        console.log("Successfully uploaded:", result.secure_url);
+      } else {
+        failedUploads.push(file.filename);
+        console.log("Failed to upload:", file.filename);
+      }
+    }
+
+    if (uploadedUrls.length === 0) {
+      return res.status(500).json({ 
+        success: false, 
+        message: "No files were uploaded to Cloudinary",
+        failedFiles: failedUploads
+      });
+    }
+
+    const task = await taskmodel.findById(req.params.taskId);
+    if (!task) {
+      return res.status(404).json({ success: false, message: "Task not found" });
+    }
+
+    task.employeeFiles.push(...uploadedUrls);
+    await task.save();
+
+    console.log("Files uploaded successfully:", uploadedUrls);
+    res.json({ 
+      success: true, 
+      urls: uploadedUrls, 
+      type: "employee",
+      uploadedCount: uploadedUrls.length,
+      failedCount: failedUploads.length
+    });
+  } catch (error) {
+    console.error("Employee upload error:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Error uploading files: " + error.message 
+    });
+  }
+});
 
 
 export default app;
