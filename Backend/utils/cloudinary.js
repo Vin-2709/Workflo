@@ -54,7 +54,7 @@ export const Uploadcloudinary = async (localFilePath) => {
             cloud_name: process.env.CLOUDINARY_CLOUD_NAME 
         });
         
-        // remove local file even if upload failed
+
         try {
             if (localFilePath && fs.existsSync(localFilePath)) {
                 fs.unlinkSync(localFilePath);

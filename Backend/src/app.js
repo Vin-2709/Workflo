@@ -395,7 +395,10 @@ app.post("/admin-upload/:taskId", isLogged,  Uploadmulter.array("files", 5), asy
             }
         }
 
-        if (uploadedUrls.length === 0) return res.status(500).json({ success: false, message: "Upload failed" });
+        if (uploadedUrls.length === 0) {
+          console.log(uploadedUrls.length);
+          return res.status(500).json({ success: false, message: "Upload failed" });
+        }
 
         const task = await taskmodel.findById(req.params.taskId);
         task.adminFiles.push(...uploadedUrls);
@@ -435,6 +438,7 @@ app.post("/employee-upload/:taskId", isLogged, Uploadmulter.array("files", 5), a
     }
 
     if (uploadedUrls.length === 0) {
+      console.log(uploadedUrls.length);
       return res.status(500).json({ 
         success: false, 
         message: "No files were uploaded to Cloudinary",

@@ -77,14 +77,14 @@ const AdminDashboard = ({changeUser,userdata}) => {
   return (
     <div className=' bg-radial-[at_50%_75%] from-sky-400 via-blue-400 to-indigo-500 to-90% min-h-screen w-auto overflow-auto   '>
       <Header changeUser={changeUser} name={user?.name || userdata?.username} /> 
-      <div className='bg-radial-[at_50%_75%] from-blue-400 via-blue-800 to-blue-900 to-90% mt-15 w-[1250px] ml-30 p-9 rounded-3xl h-[500px] shadow-lg shadow-indigo-900'>
-      <div className='flex justify-center gap-5'>
+      <div className='bg-radial-[at_50%_75%] from-blue-400 via-blue-800 to-blue-900 to-90% mt-15 w-[1250px] mx-auto p-9 rounded-3xl h-[500px] shadow-lg shadow-indigo-900'>
+      <div className='flex justify-center gap-5 '>
           <ChartNoAxesCombined size={45} color='white' className='mt-2'/>
           <h1 className=' text-white  font-serif text-[45px] font-bold text-center  [text-shadow:2px_2px_8px_rgba(0,0,0,0.7)]'>Dashboard  Overview</h1>
       </div>
       
       <div className='flex justify-center mt-10'>
-        <Link to={`/createtask/${id}`}><button className='bg-green-600 text-white w-[125px] h-[40px]  mx-10 rounded-md font-bold cursor-pointer shadow-md shadow-black '> + Assign Task</button></Link>
+        <Link to={`/createtask/${id}`}><button className='bg-green-600 text-white w-[125px] h-[40px]  ml-50 rounded-md font-bold cursor-pointer shadow-md shadow-black '> + Assign Task</button></Link>
       </div>
       
 
