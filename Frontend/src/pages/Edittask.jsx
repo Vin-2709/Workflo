@@ -50,7 +50,7 @@ const Edittask=()=>{
         catch (error) {
                console.log(error);
                setMessage("");
-               setError(error.response?.data?.message || "Error occurred"); /
+               setError(error.response?.data?.message || "Error occurred"); 
             }
         
 
