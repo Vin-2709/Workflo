@@ -56,7 +56,7 @@ const EmployeeDashboard = ({changeUser,userdata}) => {
         tasks.forEach(async(task)=>{
           const deadline=new Date(task.deadline);
           deadline.setHours(0,0,0,0);
-          if(deadline<today && task.status !=="Completed" && task.status !="Failed"){
+          if(deadline<today && task.status !=="Completed" && task.status !=="Failed"){
             await axios.post(`${import.meta.env.VITE_BACKEND_URL}/taskstatusupdate/${task._id}`, {Status:"Failed"});
           }
         });
