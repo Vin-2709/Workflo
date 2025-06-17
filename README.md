@@ -63,12 +63,14 @@ Test the following:
 > *(Click to view each screenshot)*
 
 - [Landing Page](https://github.com/user-attachments/assets/c288a823-089e-470d-96b0-615f436b92cf)
-- [Login Page](https://github.com/user-attachments/assets/0e90e9ee-edfb-488a-9c4c-2127e2e8c61e)
-- [Create Account Page](https://github.com/user-attachments/assets/0a144ea7-6690-4ec4-bb6f-d278bfa95d63)
-- [Employee Dashboard](https://github.com/user-attachments/assets/77ade77b-14ed-4ba3-904c-321719298008)
-- [File Upload (Employee Submission)](https://github.com/user-attachments/assets/2dd3fe02-21d1-4061-848a-d7c0c5e6062a)
-- [Admin Dashboard - Overview](https://github.com/user-attachments/assets/73a5799d-6be8-4756-baed-622671f9f158)
-- [Admin Dashboard - Task View](https://github.com/user-attachments/assets/7a082588-6664-47a9-91d9-3102579b4d55)
+- [Create Account Page](https://github.com/user-attachments/assets/0e90e9ee-edfb-488a-9c4c-2127e2e8c61e)
+- [Login Page](https://github.com/user-attachments/assets/0a144ea7-6690-4ec4-bb6f-d278bfa95d63)
+- [Employee Dashboard](https://github.com/user-attachments/assets/2dd3fe02-21d1-4061-848a-d7c0c5e6062a)
+- [File Upload (Employee Submission)](https://github.com/user-attachments/assets/77ade77b-14ed-4ba3-904c-321719298008)
+
+- [Admin Dashboard - Overview](https://github.com/user-attachments/assets/7a082588-6664-47a9-91d9-3102579b4d55)
+- [Admin Dashboard - Task View](https://github.com/user-attachments/assets/73a5799d-6be8-4756-baed-622671f9f158)
+
 - [Task Assignment Modal](https://github.com/user-attachments/assets/682c8619-3998-431a-a6ec-0ea57ad301f9)
 
 👨‍💻 Author
