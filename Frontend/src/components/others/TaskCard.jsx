@@ -49,7 +49,7 @@ const TaskCard= ({data,onstatusUpdate,openModal})=>{
   
 
      return (
-        <div className='flex flex-col bg-gray-200 text-black m-2 p-4 min-h-[650px] rounded-lg min-w-[400px] shadow-lg shadow-blue-700 mt-8 hover:scale-105 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 ease-out cursor-pointer'>
+        <div className='flex flex-col bg-gray-200 text-black m-2 p-4 min-h-[550px] rounded-lg min-w-[400px] shadow-lg shadow-blue-700 mt-8 hover:scale-105 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 ease-out cursor-pointer'>
             
             {/* Task Details Section */}
             <div className='flex flex-col p-2 flex-1'>
