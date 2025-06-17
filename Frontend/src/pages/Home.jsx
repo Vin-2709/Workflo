@@ -9,16 +9,16 @@ import './home.css'
 
 const Home=()=>{
     return (
-        <div className=''>
+        <div className='flex flex-col min-h-screen'>
         <header className='bg-violet-900 h-[80px] flex justify-between p-2'>
-         <img src={logo} className='ml-4 rounded-md'/>
+         <img src={logo} className='ml-4 rounded-md w-[175px]'/>
          <div className='flex p-3 gap-3'>
            <Link to="/login"><button className='bg-white text-black h-9 w-21 rounded  text-[18px] cursor-pointer'>Log in</button></Link> 
            <Link to="/register"><button className='bg-white text-black h-9 w-21 rounded  text-[18px] cursor-pointer'>Sign up</button></Link> 
          </div>
          
         </header>
-        <main className='flex justify-center'>
+        <main className='flex-grow flex justify-center items-center'>
             <img src={mainImg} className='h-[700px]'/>
         </main>
         <footer className='bg-indigo-950 h-[220px] flex flex-col justify-end p-3 '>
