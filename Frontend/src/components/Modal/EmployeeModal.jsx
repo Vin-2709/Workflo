@@ -77,7 +77,7 @@ const Modal = ({ task, onClose, onUploadSuccess }) => {
   return (
     
    <div className="fixed inset-0 bg-[rgba(0,0,0,0.2)] backdrop-blur-md flex items-center justify-center z-50 transition-opacity duration-300 opacity-100">
-  <div className="bg-indigo-900 rounded-lg w-[600px] h-[670px] p-10 relative flex flex-col text-white shadow-lg shadow-black">
+  <div className="bg-indigo-900 rounded-lg w-[600px] min-h-[670px] p-10 relative flex flex-col text-white shadow-lg shadow-black">
     <button onClick={onClose} className="self-end mb-1">
       <X size={30} />
     </button>
