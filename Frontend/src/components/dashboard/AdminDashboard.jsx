@@ -84,8 +84,13 @@ const AdminDashboard = ({changeUser,userdata}) => {
       </div>
       
       <div className='flex justify-center mt-10'>
-        <Link to={`/createtask/${id}`}><button className='bg-green-600 text-white w-[125px] h-[40px]  ml-40 rounded-md font-bold cursor-pointer shadow-md shadow-black '> + Assign Task</button></Link>
+        <Link to={`/createtask/${id}`}>
+          <button className='bg-green-600 text-white w-[140px] h-[42px] rounded-md font-bold cursor-pointer shadow-md shadow-black hover:bg-green-700 transition-all'>
+            + Assign Task
+          </button>
+        </Link>
       </div>
+
       
 
       <div className='flex justify-center gap-8 mt-20'>
