@@ -97,7 +97,7 @@ const EmployeeDashboard = ({changeUser,userdata}) => {
   <span className=' text-white  font-serif text-[35px] font-bold text-center [text-shadow:2px_2px_8px_rgba(0,0,0,0.7)]' >All Tasks</span>
   <ChevronRight size={35} className="text-white hover:text-indigo-300 mt-2"  />
 </h2>
-        <div className=' scrollbar-minimal mt-1 flex overflow-x-auto  flex-nowrap scrollbar-hide'>
+        <div className=' scrollbar-minimal mt-4 flex overflow-x-auto  flex-nowrap scrollbar-hide'>
           {tasks.length === 0 ? (<div>No tasks </div>) :
             tasks.map((task, index) => (
               <TaskCard key={task.id || index} data={task} onstatusUpdate={updateTaskStatus}  openModal={openModal} />
