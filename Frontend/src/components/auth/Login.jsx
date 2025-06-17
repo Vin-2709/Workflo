@@ -31,6 +31,7 @@ const Login = ({ loggedinuser }) => {
       loggedinuser(response.data.user); 
       const Data = response.data; 
       if (Data.success) {
+        console.log('Login successful:', Data);
         const userId = Data.userId;   
         const userRole = Data.user.role;
         if (userRole == 'admin') {
