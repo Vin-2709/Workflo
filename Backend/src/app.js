@@ -472,39 +472,39 @@ app.post("/admin-upload/:taskId", isLogged,  Uploadmulter.array("files", 5), asy
 // });
 
 // Upload file by employee
-app.post("/employee-upload/:taskId", isLogged, Uploadmulter.array("files", 5), async (req, res) => {
-  try {
+// app.post("/employee-upload/:taskId", isLogged, Uploadmulter.array("files", 5), async (req, res) => {
+//   try {
 
-const srcLocalPath = req.files[0]?.path;
-if (!srcLocalPath) return res.status(400).json({ msg: "File path missing" });
+// const srcLocalPath = req.files[0]?.path;
+// if (!srcLocalPath) return res.status(400).json({ msg: "File path missing" });
 
-const src = await Uploadcloudinary(srcLocalPath);
+// const src = await Uploadcloudinary(srcLocalPath);
 
-// Only store URL
-const uploadSrc = [src.secure_url];
+// // Only store URL
+// const uploadSrc = [src.secure_url];
 
-const task = await taskmodel.findById(req.params.taskId);
-if (!task) return res.status(404).json({ success: false, message: "Task not found" });
+// const task = await taskmodel.findById(req.params.taskId);
+// if (!task) return res.status(404).json({ success: false, message: "Task not found" });
 
-task.employeeFiles.push(...uploadSrc);
-await task.save();
+// task.employeeFiles.push(...uploadSrc);
+// await task.save();
 
-console.log("Files uploaded successfully:", uploadSrc);
+// console.log("Files uploaded successfully:", uploadSrc);
 
-res.json({ 
-  success: true, 
-  urls: uploadSrc, 
-  type: "employee",
-  uploadedCount: uploadSrc.length,
-});
-  } catch (error) {
-    console.error("Employee upload error:", error);
-    res.status(500).json({ 
-      success: false, 
-      message: "Error uploading files: " + error.message 
-    });
-  }
-});
+// res.json({ 
+//   success: true, 
+//   urls: uploadSrc, 
+//   type: "employee",
+//   uploadedCount: uploadSrc.length,
+// });
+//   } catch (error) {
+//     console.error("Employee upload error:", error);
+//     res.status(500).json({ 
+//       success: false, 
+//       message: "Error uploading files: " + error.message 
+//     });
+//   }
+// });
 
 
 export default app;
