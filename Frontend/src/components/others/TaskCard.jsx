@@ -57,7 +57,7 @@ const TaskCard= ({data,onstatusUpdate,openModal})=>{
                 
                 <div className='mt-3'>
                     <span className='font-bold'>Description:</span>
-                    <p className='text-sm mt-1 text-gray-700 line-clamp-4'>
+                    <p className='text-[16px] mt-1 text-gray-700 line-clamp-4'>
                         {data.description}
                     </p>
                 </div>
@@ -80,7 +80,7 @@ const TaskCard= ({data,onstatusUpdate,openModal})=>{
             </div>
 
             {/* Action Buttons Section */}
-            <div className='flex justify-between items-center gap-4 mt-4 pt-4 border-t border-gray-200'>
+            <div className='flex justify-between items-center gap-4 mt-2 pt-2 border-t border-gray-200'>
                 
                 {/* Status Update Button */}
               <div className='flex '>
