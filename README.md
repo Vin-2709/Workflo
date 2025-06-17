@@ -70,7 +70,7 @@ Test the following:
 
 - [Admin Dashboard - Overview](https://github.com/user-attachments/assets/7a082588-6664-47a9-91d9-3102579b4d55)
 - [Admin Dashboard - Task View](https://github.com/user-attachments/assets/73a5799d-6be8-4756-baed-622671f9f158)
-- [File Upload (Admin Submission)] (https://github.com/user-attachments/assets/f442bcb7-8585-4326-9d4c-40379aece51a)
+- [File Upload (Admin Submission)](https://github.com/user-attachments/assets/f442bcb7-8585-4326-9d4c-40379aece51a)
 
 
 - [Task Assignment Modal](https://github.com/user-attachments/assets/682c8619-3998-431a-a6ec-0ea57ad301f9)
