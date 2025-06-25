@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 import authRoutes      from './routes/auth.routes.js';
 import adminRoutes     from './routes/admin.routes.js';
 import employeeRoutes  from './routes/employee.routes.js';
@@ -14,12 +14,13 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: 'http://localhost:5173',
   credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 app.get('/', (req, res) => {
   console.log('hi this is home page');
   res.json({ message: 'Welcome to Task Management API' });

@@ -27,7 +27,9 @@ const taskSchema=mongoose.Schema({
       default:"Incompleted"
     },
     adminFiles:[String],
-    employeeFiles:[String]
+    employeeFiles:[String],
+    AdminComments:String,
+    EmployeeComments:String
 
 },{timestamps:true})
 

@@ -1,305 +1,227 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { X } from 'lucide-react';
-import { Upload } from 'lucide-react';
-import { Files } from 'lucide-react';
+import {
+  X, UploadCloud, FileUp, FileDown, Trash2, Sparkles, MessageCircle, Send
+} from "lucide-react";
+import AskAiModal from "./EmployeeAiModal";
 
-
-const Modal = ({ task, onClose, onUploadSuccess }) => {
+const EmployeeModal = ({ task, onClose, onUploadSuccess }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [showAiModal, setShowAiModal] = useState(false);
+  const [employeeComment, setEmployeeComment] = useState(task.EmployeeComments || "");
+  const [submittingComment, setSubmittingComment] = useState(false);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    // Limit to 5 files total
-    const totalFiles = selectedFiles.length + files.length;
-    if (totalFiles > 5) {
-      alert(`You can only upload a maximum of 5 files. You currently have ${selectedFiles.length} files selected.`);
-      return;
+    const total = selectedFiles.length + files.length;
+    if (total > 5) {
+      return alert(`Max 5 files allowed. You selected ${total}.`);
     }
-    setSelectedFiles(prev => [...prev, ...files]);
+    setSelectedFiles((prev) => [...prev, ...files]);
   };
 
   const handleRemove = (idx) => {
-    setSelectedFiles(prev => prev.filter((_, i) => i !== idx));
+    setSelectedFiles((prev) => prev.filter((_, i) => i !== idx));
   };
 
   const handleUpload = async () => {
     if (!selectedFiles.length) return alert("No files selected");
-    
-    // Validate file count
-    if (selectedFiles.length > 5) {
-      alert("Maximum 5 files allowed");
-      return;
-    }
-    
     setUploading(true);
-
     const formData = new FormData();
-    selectedFiles.forEach((file) => {
-      formData.append("files", file);
-    });
-
-    // Debug logs
-    console.log("Task ID:", task._id);
-    console.log("Files to upload:", selectedFiles.length);
-    console.log("FormData entries:", [...formData.entries()]);
+    selectedFiles.forEach((file) => formData.append("files", file));
 
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/employee-upload/${task._id}`,
         formData,
         {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+          headers: { "Content-Type": "multipart/form-data" },
           withCredentials: true,
         }
       );
-
-      console.log("Upload success:", res.data);
-      alert(`Successfully uploaded ${res.data.uploadedCount || selectedFiles.length} files!`);
-      
-      if (onUploadSuccess) {
-        onUploadSuccess(res.data);
-      }
-      
+      alert("Files uploaded successfully!");
+      if (onUploadSuccess) onUploadSuccess(res.data);
       setSelectedFiles([]);
       onClose();
     } catch (err) {
-      console.error("Upload error:", err.response?.data || err.message);
-      alert(`Upload failed: ${err.response?.data?.message || err.message}`);
+      console.error("Upload error", err);
+      alert(err.response?.data?.message || "Upload failed");
     } finally {
       setUploading(false);
     }
   };
 
+  const handleCommentSubmit = async () => {
+    if (!employeeComment.trim()) {
+      alert("Please enter a comment");
+      return;
+    }
+
+    setSubmittingComment(true);
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/employee-comment/${task._id}`,
+        { comment: employeeComment },
+        { withCredentials: true }
+      );
+      
+      if (res.data.success) {
+        alert("Comment added successfully!");
+        if (onUploadSuccess) onUploadSuccess(res.data);
+        onClose();
+      }
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+      alert(`Failed to add comment: ${err.response?.data?.message || err.message}`);
+    } finally {
+      setSubmittingComment(false);
+    }
+  };
+
   return (
-    
-   <div className="fixed inset-0 bg-[rgba(0,0,0,0.2)] backdrop-blur-md flex items-center justify-center z-50 transition-opacity duration-300 opacity-100">
-  <div className="bg-indigo-900 rounded-lg w-[600px] min-h-[670px] p-10 relative flex flex-col text-white shadow-lg shadow-black">
-    <button onClick={onClose} className="self-end mb-1">
-      <X size={30} />
-    </button>
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 ">
+      <div className="flex flex-col gap-[15px] bg-indigo-950 min-w-[700px] min-h-[650px] max-h-[95vh] overflow-y-auto rounded-xl px-8 pt-9 text-white shadow-xl relative">
+        <button onClick={onClose} className="absolute top-4 right-4 hover:text-red-400">
+          <X size={22} />
+        </button>
 
-    <div className="flex justify-center mb-2">
-      <Files className="mt-4" />
-      <h2 className="text-[25px] font-bold mb-1 py-1 px-4 rounded-t-lg text-center">
-        Manage Files
-      </h2>
-    </div>
+        <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+          <UploadCloud size={22} /> Manage Files & Comments
+        </h2>
 
-    <p className="text-lg mb-4 font-semibold">Task: {task.domain}</p>
+        <p className="text-lg mb-4">
+          Task: <span className="text-indigo-300 font-medium">{task.domain}</span>
+        </p>
 
-    {/* Files from Admin */}
-    <div className="mb-6">
-      <h3 className="font-medium mb-2">Files from Admin</h3>
-      <div className="bg-gray-300 text-black p-4 rounded">
-        {task.adminFiles && task.adminFiles.length > 0 ? (
-          <ul className="space-y-1">
-            {task.adminFiles.map((file, idx) => (
-              <li key={idx} className="text-black hover:underline">
-                <a href={file} target="_blank" rel="noopener noreferrer">
-                  File {idx + 1}
-                </a>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          "No files from admin"
-        )}
-      </div>
-    </div>
+        {/* Comments Section */}
+        <div className="mb-6">
+          <h3 className="font-semibold mb-3 text-sm text-indigo-200 flex items-center gap-1">
+            <MessageCircle size={16} /> Comments
+          </h3>
+          
+          {task.AdminComments && (
+            <div className="bg-blue-100 p-3 rounded mb-3 text-black">
+              <p className="font-semibold text-blue-800 mb-1">Admin Comment:</p>
+              <p className="whitespace-pre-wrap">{task.AdminComments}</p>
+            </div>
+          )}
 
-    {/* Your Uploaded Files */}
-    <div className="mb-6">
-      <h3 className="font-medium mb-2">Your Uploaded Files</h3>
-      <div className="bg-gray-300 text-black p-4 rounded">
-        {task.employeeFiles && task.employeeFiles.length > 0 ? (
-          <ul className="space-y-1">
-            {task.employeeFiles.map((file, idx) => (
-              <li key={idx} className="text-black hover:underline">
-                <a href={file} target="_blank" rel="noopener noreferrer">
-                  File {idx + 1}
-                </a>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          "No files uploaded yet"
-        )}
-      </div>
-    </div>
+          {task.EmployeeComments && (
+            <div className="bg-green-100 p-3 rounded mb-3 text-black">
+              <p className="font-semibold text-green-800 mb-1">Your Previous Comment:</p>
+              <p className="whitespace-pre-wrap">{task.EmployeeComments}</p>
+            </div>
+          )}
 
-    <hr className="border-gray-300 mb-6" />
-
-    {/* Upload Section */}
-    <div>
-      <label className="block font-medium mb-2">
-        Upload Files (Max 5) - Currently selected: {selectedFiles.length}
-      </label>
-      <input
-        type="file"
-        multiple
-        accept="*/*"
-        className="block rounded py-2 mb-3 file:mr-4 file:text-white file:font-medium file:rounded file:cursor-pointer"
-        onChange={handleFileChange}
-        disabled={uploading}
-      />
-
-      {selectedFiles.length > 0 && (
-        <ul className="space-y-2 mb-4 max-h-32 overflow-y-auto">
-          {selectedFiles.map((f, idx) => (
-            <li
-              key={idx}
-              className="flex justify-between items-center bg-yellow-50 p-2 rounded"
+          <div className="bg-indigo-100 p-3 rounded text-black">
+            <label className="block font-semibold text-indigo-900 mb-2">
+              Add/Update Your Comment:
+            </label>
+            <textarea
+              value={employeeComment}
+              onChange={(e) => setEmployeeComment(e.target.value)}
+              placeholder="Enter your comment or questions for the admin..."
+              className="w-full p-2 border border-indigo-300 rounded text-sm resize-vertical min-h-[80px]"
+              disabled={submittingComment}
+            />
+            <button
+              onClick={handleCommentSubmit}
+              disabled={submittingComment || !employeeComment.trim()}
+              className={`mt-2 px-4 py-2 rounded text-white font-medium flex items-center gap-2 min-h-[1vh] ${
+                submittingComment || !employeeComment.trim()
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-indigo-600 hover:bg-indigo-700"
+              }`}
             >
-              <span className="text-gray-800 truncate">{f.name}</span>
-              <button
-                onClick={() => handleRemove(idx)}
-                className="text-red-500 hover:underline ml-2 flex-shrink-0"
-                disabled={uploading}
-              >
-                Remove
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+              <Send size={16} />
+              {submittingComment ? "Submitting..." : "Submit"}
+            </button>
+          </div>
+        </div>
 
-      <button
-        onClick={handleUpload}
-        disabled={uploading || selectedFiles.length === 0}
-        className={`w-full py-3 rounded font-medium ${
-          uploading || selectedFiles.length === 0
-            ? "bg-gray-400 text-gray-900 cursor-not-allowed"
-            : "bg-indigo-700 hover:bg-blue-700 text-white"
-        }`}
-      >
-        <Upload className="inline mr-2" />
-        {uploading
-          ? "Uploading..."
-          : `Upload ${selectedFiles.length} File${
-              selectedFiles.length !== 1 ? "s" : ""
+        <div className="bg-indigo-100 text-black p-3 rounded mb-4">
+          <p className="font-semibold mb-1 flex items-center gap-1">
+            <FileDown className="text-indigo-700" size={16} /> Files from Admin
+          </p>
+          {task.adminFiles?.length ? (
+            <ul className="list-disc ml-4 space-y-1">
+              {task.adminFiles.map((file, i) => (
+                <li key={i}>
+                  <a href={file} target="_blank" rel="noopener noreferrer" className="hover:underline">File {i + 1}</a>
+                </li>
+              ))}
+            </ul>
+          ) : "No files"}
+        </div>
+
+        <div className="bg-indigo-100 text-black p-3 rounded mb-4">
+          <p className="font-semibold mb-1 flex items-center gap-1">
+            <FileUp className="text-indigo-700" size={16} /> Your Uploaded Files
+          </p>
+          {task.employeeFiles?.length ? (
+            <ul className="list-disc ml-4 space-y-1">
+              {task.employeeFiles.map((file, i) => (
+                <li key={i}>
+                  <a href={file} target="_blank" rel="noopener noreferrer" className="hover:underline">File {i + 1}</a>
+                </li>
+              ))}
+            </ul>
+          ) : "No files yet"}
+        </div>
+
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-indigo-200 mb-1">
+            Choose and Upload Files (Max 5) - Selected: {selectedFiles.length}
+          </label>
+          <input
+            type="file"
+            multiple
+            onChange={handleFileChange}
+            disabled={uploading}
+            className="w-full bg-indigo-50 text-black rounded-lg p-2 text-sm file:bg-indigo-600 file:text-white file:px-3 file:py-1 file:rounded-lg file:cursor-pointer"
+          />
+          {selectedFiles.length > 0 && (
+            <ul className="text-black text-sm bg-indigo-100 rounded mt-2 p-2 max-h-24 overflow-y-auto space-y-1">
+              {selectedFiles.map((file, i) => (
+                <li key={i} className="flex justify-between items-center">
+                  {file.name}
+                  <button
+                    onClick={() => handleRemove(i)}
+                    className="text-red-500 hover:underline text-xs"
+                    disabled={uploading}
+                  >
+                    <Trash2 size={14} /> Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div className="flex gap-4 mt-3 mb-5">
+          <button
+            onClick={handleUpload}
+            disabled={uploading || !selectedFiles.length}
+            className={`w-full py-2 rounded bg-indigo-700 hover:bg-indigo-800 text-white flex items-center justify-center gap-2 ${
+              uploading ? "opacity-50 cursor-not-allowed" : ""
             }`}
-      </button>
+          >
+            <UploadCloud size={18} /> {uploading ? "Uploading..." : `Upload (${selectedFiles.length})`}
+          </button>
+
+          <button
+            onClick={() => setShowAiModal(true)}
+            className="w-full py-2 rounded bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center gap-2"
+          >
+            <Sparkles size={18} /> Ask AI
+          </button>
+        </div>
+
+        {showAiModal && <AskAiModal task={task} onClose={() => setShowAiModal(false)} />}
+      </div>
     </div>
-  </div>
-</div>
-
-
   );
 };
 
-export default Modal;
-
-
-
-// <div className="fixed inset-0 bg-[rgba(0,0,0,0.2)] backdrop-blur-md flex items-center justify-center z-50 transition-opacity duration-300 opacity-100">
-
-
-    //   <div className="bg-indigo-800 rounded-lg w-[600px] p-10 relative mt-10 flex flex-col text-indigo-800 ">
-    //     <button
-    //       onClick={onClose}
-    //       className="place-self-end "
-    //     >
-    //       <X  size={30}/>
-    //     </button>
-
-    //     <h2 className=" text-[25px] font-bold mb-1  py-2 px-4 rounded-t-lg text-center">
-    //       Manage Files
-    //     </h2>
-    //     <p className="text-lg text-indigo-800 mb-4 font-semibold">
-    //       Task: {task.domain}
-    //     </p>
-
-    //     {/* Files from Admin */}
-    //     <div className="mb-6">
-    //       <h3 className="font-medium mb-2">Files from Admin</h3>
-    //       <div className="bg-gray-100 text-black p-4 rounded">
-    //         {task.adminFiles && task.adminFiles.length > 0 ? (
-    //           <ul className="space-y-1">
-    //             {task.adminFiles.map((file, idx) => (
-    //               <li key={idx} className="text-black  hover:underline">
-    //                 <a href={file} target="_blank" rel="noopener noreferrer">
-    //                   File {idx + 1}
-    //                 </a>
-    //               </li>
-    //             ))}
-    //           </ul>
-    //         ) : (
-    //           "No files from admin"
-    //         )}
-    //       </div>
-    //     </div>
-
-    //     {/* Your Uploaded Files */}
-    //     <div className="mb-6">
-    //       <h3 className="font-medium mb-2">Your Uploaded Files</h3>
-    //       <div className="bg-gray-100 p-4 rounded">
-    //         {task.employeeFiles && task.employeeFiles.length > 0 ? (
-    //           <ul className="space-y-1">
-    //             {task.employeeFiles.map((file, idx) => (
-    //               <li key={idx} className="text-black hover:underline">
-    //                 <a href={file} target="_blank" rel="noopener noreferrer">
-    //                   File {idx + 1}
-    //                 </a>
-    //               </li>
-    //             ))}
-    //           </ul>
-    //         ) : (
-    //           "No files uploaded yet"
-    //         )}
-    //       </div>
-    //     </div>
-
-    //     <hr className="border-gray-300 mb-6" />
-
-    //     {/* Upload Section */}
-    //     <div>
-    //       <label className="block font-medium mb-2">
-    //         Upload Files (Max 5) - Currently selected: {selectedFiles.length}
-    //       </label>
-    //       <input
-    //         type="file"
-    //         multiple
-    //         accept="*/*"
-    //         className="block w-[150pxx] border border-gray-300 rounded  py-2 mb-3 file:mr-4 file:text-black file:font-medium  file:rounded file:cursor-pointer "
-    //         onChange={handleFileChange}
-    //         disabled={uploading}
-    //       />
-
-    //       {selectedFiles.length > 0 && (
-    //         <ul className="space-y-2 mb-4 max-h-32 overflow-y-auto ">
-    //           {selectedFiles.map((f, idx) => (
-    //             <li
-    //               key={idx}
-    //               className="flex justify-between items-center bg-yellow-50 p-2 rounded"
-    //             >
-    //               <span className="text-gray-800 truncate">{f.name}</span>
-    //               <button
-    //                 onClick={() => handleRemove(idx)}
-    //                 className="text-red-500 hover:underline ml-2 flex-shrink-0"
-    //                 disabled={uploading}
-    //               >
-    //                 Remove
-    //               </button>
-    //             </li>
-    //           ))}
-    //         </ul>
-    //       )}
-
-    //       <button
-    //         onClick={handleUpload}
-    //         disabled={uploading || selectedFiles.length === 0}
-    //         className={`w-full py-3 rounded font-medium ${
-    //           uploading || selectedFiles.length === 0
-    //             ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-    //             : "bg-indigo-700 hover:bg-blue-700 text-white"
-    //         }`}
-    //       >
-    //         {uploading ? "Uploading..." : `Upload ${selectedFiles.length} File${selectedFiles.length !== 1 ? 's' : ''}`}
-    //       </button>
-    //     </div>
-    //   </div>
-    // </div>
+export default EmployeeModal;

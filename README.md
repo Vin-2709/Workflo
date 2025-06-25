@@ -90,3 +90,51 @@ Developed by [Vineet](https://github.com/Vin-2709)
 
 
  
+<main className='mt-10 flex-grow flex flex-col gap-16 justify-center items-center px-6 text-white'>
+  <h2 className="text-4xl font-bold tracking-wide text-center ">Streamline your tasks...</h2>
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-6xl">
+    
+   
+
+    
+    {/* Feature 1: Role-Based Access */}
+     <div className="bg-blue-800 p-6 rounded-2xl flex flex-col items-center text-center shadow-lg hover:scale-105 transition-transform">
+      <div className="bg-blue-600 p-3 rounded-full mb-4">
+        <UserCog className="w-8 h-8 text-white" />
+      </div>
+      <h3 className="text-xl font-semibold mb-2">Choose Your Role</h3>
+      <p className="text-sm text-blue-200">Login as Admin or Employee with custom access and features.</p>
+    </div>
+
+    {/* Feature 2: Task Status Tracking */}
+    <div className="bg-blue-800 p-6 rounded-2xl flex flex-col items-center text-center shadow-lg hover:scale-105 transition-transform">
+      <div className="bg-blue-600 p-3 rounded-full mb-4">
+        <BadgeCheck className="w-8 h-8 text-white" />
+      </div>
+      <h3 className="text-xl font-semibold mb-2">Task Status</h3>
+      <p className="text-sm text-blue-200">Track task progress and status updates in real-time.</p>
+    </div>
+
+    
+     {/* Feature 3: File Submission */}
+    <div className="bg-blue-800 p-6 rounded-2xl flex flex-col items-center text-center shadow-lg hover:scale-105 transition-transform">
+      <div className="bg-blue-600 p-3 rounded-full mb-4">
+        <FileUp className="w-8 h-8 text-white" />
+      </div>
+      <h3 className="text-xl font-semibold mb-2">File Submission</h3>
+      <p className="text-sm text-blue-200">Upload, manage, and access task files anytime, anywhere.</p>
+    </div>
+   
+     {/* Feature 4: AI Assistance */}
+    <div className="bg-blue-800 p-6 rounded-2xl flex flex-col items-center text-center shadow-lg hover:scale-105 transition-transform">
+      <div className="bg-blue-600 p-3 rounded-full mb-4">
+        <Brain className="w-8 h-8 text-white" />
+      </div>
+      <h3 className="text-xl font-semibold mb-2">AI Assistance</h3>
+      <p className="text-sm text-blue-200">Get AI-powered task suggestions and intelligent recommendations.</p>
+    </div>
+
+   
+
+  </div>
+</main>

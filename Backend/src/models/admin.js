@@ -5,7 +5,7 @@ const adminSchema=new mongoose.Schema({
     email:String,
     password:String,
     role:String,
-    employees:[{type:mongoose.Schema.Types.ObjectId,ref:"employess"}],
+    employees:[{type:mongoose.Schema.Types.ObjectId,ref:"employee"}],
     tasks:[{type:mongoose.Schema.Types.ObjectId, ref:"task"}]
 }
 );
