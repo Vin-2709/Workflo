@@ -85,9 +85,9 @@ const ModernLandingPage = () => {
           <Link to="/login" className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300">
             Get Started
           </Link>
-          <Link to="/features" className="px-8 py-4 border border-slate-600 text-white rounded-xl font-semibold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+          <p to="/features" className="px-8 py-4 border border-slate-600 text-white rounded-xl font-semibold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
             Learn More
-          </Link>
+          </p>
         </div>
       </section>
 
@@ -153,9 +153,9 @@ const ModernLandingPage = () => {
             <Link to="/login" className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300">
               Get Started Now
             </Link>
-            <Link to="/contact" className="px-8 py-4 text-blue-300 hover:text-white transition-colors duration-200 font-semibold">
+            <p to="/contact" className="px-8 py-4 text-blue-300 hover:text-white transition-colors duration-200 font-semibold">
               Contact Us
-            </Link>
+            </p>
           </div>
           <p className="text-slate-500 text-sm">Easy setup • Powerful features • Get started today</p>
         </div>
