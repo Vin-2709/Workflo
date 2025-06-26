@@ -78,7 +78,7 @@ const EmployeeDashboard = ({ changeUser, userdata }) => {
     <div className="min-h-screen bg-gradient-to-br from-indigo-300 to-blue-800 overflow-hidden">
       <Header changeUser={changeUser} name={user?.name || userdata?.username} />
 
-      <section className="flex flex-wrap justify-center gap-4 py-6 px-4">
+      <section className="flex flex-wrap justify-center gap-4 py-6 px-4 mb-10">
         <StatusCards title="New Tasks" data={tasks} status="New" />
         <StatusCards title="Active Tasks" data={tasks} status="Pending" />
         <StatusCards title="Completed Tasks" data={tasks} status="Completed" />
@@ -87,13 +87,13 @@ const EmployeeDashboard = ({ changeUser, userdata }) => {
       </section>
 
       <section className="px-6">
-        <h2 className="flex justify-center items-center text-4xl font-bold text-white space-x-3 mb-6">
+        <h2 className="flex justify-center items-center text-4xl font-bold text-white space-x-3 mt-40">
           <ChevronLeft size={35} className="hover:text-blue-300 transition-colors" />
           <span className="[text-shadow:2px_2px_8px_rgba(0,0,0,0.7)]">All Tasks</span>
           <ChevronRight size={35} className="hover:text-blue-300 transition-colors" />
         </h2>
 
-        <div className="scrollbar-hide flex gap-6 overflow-x-auto px-1 pb-6">
+        <div className="scrollbar-hide flex gap-6 overflow-x-auto px-1 pb-6 mt-15">
           {tasks.length === 0 ? (
             <div className="text-white text-center w-full">No tasks assigned</div>
           ) : (
