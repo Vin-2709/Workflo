@@ -80,7 +80,7 @@ Remember: Your purpose is to assist efficiently and intelligently — without no
 });
 
 const visionModel = genAI.getGenerativeModel({
-  model: "models/gemini-1.5-flash",
+  model: "gemini-1.5-flash",
   systemInstruction: `
 You are an AI assistant in the Workflo task management system, created by Vineet. You help analyze task context, uploaded files, and provide concise, professional feedback for employees and admins.
 
