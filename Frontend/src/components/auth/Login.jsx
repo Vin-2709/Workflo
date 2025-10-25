@@ -255,7 +255,6 @@
 
 // export default Login;
 
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
@@ -325,172 +324,175 @@ const Login = ({ loggedinuser }) => {
         </div>
       </header>
 
+      {/* Main Content Area */}
+      {/* Changed flex properties here */}
       <main className="relative z-10 flex flex-grow items-center justify-center px-6 py-12">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8 w-full max-w-4xl">
-
-          <div className="flex flex-col w-full lg:w-[60%]">
-            <div className="bg-blue-900 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
-              <div className="px-8 pt-8 pb-8 space-y-6">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-                    <Shield className="w-8 h-8 text-white" />
-                  </div>
-                  <h2 className="text-3xl font-bold text-white mb-2">Welcome Back</h2>
-                  <p className="text-blue-200">Sign in to access your workspace</p>
+        {/* Removed flex container for login + demo box */}
+        {/* Login Form Section - now directly centered by main */}
+        <div className="flex flex-col w-full max-w-md"> {/* Ensure login form has a max-width */}
+          <div className="bg-blue-900 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
+            <div className="px-8 pt-8 pb-8 space-y-6">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                  <Shield className="w-8 h-8 text-white" />
                 </div>
+                <h2 className="text-3xl font-bold text-white mb-2">Welcome Back</h2>
+                <p className="text-blue-200">Sign in to access your workspace</p>
+              </div>
 
-                {error && (
-                  <div className="p-4 bg-red-500/20 border border-red-500/30 rounded-xl">
-                    <p className="text-red-300 text-center text-sm font-medium">{error}</p>
-                  </div>
-                )}
-
-                <div className="space-y-2 flex flex-col items-center">
-                  <label className="text-sm font-semibold text-blue-100 flex items-center space-x-2 w-full max-w-xs">
-                    <Mail className="w-4 h-4" />
-                    <span>Email Address</span>
-                  </label>
-                  <div className="relative w-full max-w-xs">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email address"
-                      required
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
-                    />
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                      <Mail className="w-5 h-5 text-blue-300" />
-                    </div>
-                  </div>
+              {error && (
+                <div className="p-4 bg-red-500/20 border border-red-500/30 rounded-xl">
+                  <p className="text-red-300 text-center text-sm font-medium">{error}</p>
                 </div>
+              )}
 
-                <div className="space-y-2 flex flex-col items-center">
-                  <label className="text-sm font-semibold text-blue-100 flex items-center space-x-2 w-full max-w-xs">
-                    <Lock className="w-4 h-4" />
-                    <span>Password</span>
-                  </label>
-                  <div className="relative w-full max-w-xs">
-                    <input
-                      type={showPassword ? 'text' : 'password'}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Enter your password"
-                      required
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm pr-10"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-blue-300 hover:text-white transition-colors"
-                    >
-                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                    </button>
+              <div className="space-y-2 flex flex-col items-center">
+                <label className="text-sm font-semibold text-blue-100 flex items-center space-x-2 w-full max-w-xs">
+                  <Mail className="w-4 h-4" />
+                  <span>Email Address</span>
+                </label>
+                <div className="relative w-full max-w-xs">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    required
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+                  />
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                    <Mail className="w-5 h-5 text-blue-300" />
                   </div>
                 </div>
+              </div>
 
-                <div className="space-y-3 flex flex-col items-center">
-                  <label className="text-sm font-semibold text-blue-100 w-full max-w-xs">Select Role</label>
-                  <div className="grid grid-cols-2 gap-3 w-full max-w-xs">
-                    <label className={`relative cursor-pointer group rounded-xl ${role === 'admin' ? 'ring-2 ring-blue-500' : ''}`}>
-                      <input
-                        type="radio"
-                        name="role"
-                        value="admin"
-                        checked={role === 'admin'}
-                        onChange={(e) => setRole(e.target.value)}
-                        className="sr-only"
-                      />
-                      <div className={`p-3 rounded-xl border-2 transition-all duration-300 ${role === 'admin' ? 'bg-blue-500/20 border-blue-500 text-white' : 'bg-white/5 border-white/20 text-blue-200 hover:bg-white/10 hover:border-white/30'}`}>
-                        <div className="flex items-center justify-center space-x-2">
-                          <Shield className="w-5 h-5" />
-                          <span className="font-semibold text-sm">Admin</span>
-                        </div>
-                      </div>
-                    </label>
-                    <label className={`relative cursor-pointer group rounded-xl ${role === 'employee' ? 'ring-2 ring-blue-500' : ''}`}>
-                      <input
-                        type="radio"
-                        name="role"
-                        value="employee"
-                        checked={role === 'employee'}
-                        onChange={(e) => setRole(e.target.value)}
-                        className="sr-only"
-                      />
-                      <div className={`p-3 rounded-xl border-2 transition-all duration-300 ${role === 'employee' ? 'bg-blue-500/20 border-blue-500 text-white' : 'bg-white/5 border-white/20 text-blue-200 hover:bg-white/10 hover:border-white/30'}`}>
-                        <div className="flex items-center justify-center space-x-2">
-                          <User className="w-5 h-5" />
-                          <span className="font-semibold text-sm">Employee</span>
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-
-                <div className="flex justify-center pt-2">
+              <div className="space-y-2 flex flex-col items-center">
+                <label className="text-sm font-semibold text-blue-100 flex items-center space-x-2 w-full max-w-xs">
+                  <Lock className="w-4 h-4" />
+                  <span>Password</span>
+                </label>
+                <div className="relative w-full max-w-xs">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                    required
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm pr-10"
+                  />
                   <button
                     type="button"
-                    onClick={submitHandler}
-                    disabled={isLoading}
-                    className="w-full max-w-xs bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 group"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-blue-300 hover:text-white transition-colors"
                   >
-                    {isLoading ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                        <span>Signing In...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>Sign In</span>
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                      </>
-                    )}
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
                 </div>
+              </div>
 
-                <div className="relative flex items-center justify-center py-2">
-                  <div className="absolute inset-0 flex items-center px-8">
-                    <div className="w-full border-t border-white/20"></div>
-                  </div>
-                  <div className="relative px-4 bg-blue-900">
-                    <span className="text-sm text-blue-200">or</span>
-                  </div>
+              <div className="space-y-3 flex flex-col items-center">
+                <label className="text-sm font-semibold text-blue-100 w-full max-w-xs">Select Role</label>
+                <div className="grid grid-cols-2 gap-3 w-full max-w-xs">
+                  <label className={`relative cursor-pointer group rounded-xl ${role === 'admin' ? 'ring-2 ring-blue-500' : ''}`}>
+                    <input
+                      type="radio"
+                      name="role"
+                      value="admin"
+                      checked={role === 'admin'}
+                      onChange={(e) => setRole(e.target.value)}
+                      className="sr-only"
+                    />
+                    <div className={`p-3 rounded-xl border-2 transition-all duration-300 ${role === 'admin' ? 'bg-blue-500/20 border-blue-500 text-white' : 'bg-white/5 border-white/20 text-blue-200 hover:bg-white/10 hover:border-white/30'}`}>
+                      <div className="flex items-center justify-center space-x-2">
+                        <Shield className="w-5 h-5" />
+                        <span className="font-semibold text-sm">Admin</span>
+                      </div>
+                    </div>
+                  </label>
+                  <label className={`relative cursor-pointer group rounded-xl ${role === 'employee' ? 'ring-2 ring-blue-500' : ''}`}>
+                    <input
+                      type="radio"
+                      name="role"
+                      value="employee"
+                      checked={role === 'employee'}
+                      onChange={(e) => setRole(e.target.value)}
+                      className="sr-only"
+                    />
+                    <div className={`p-3 rounded-xl border-2 transition-all duration-300 ${role === 'employee' ? 'bg-blue-500/20 border-blue-500 text-white' : 'bg-white/5 border-white/20 text-blue-200 hover:bg-white/10 hover:border-white/30'}`}>
+                      <div className="flex items-center justify-center space-x-2">
+                        <User className="w-5 h-5" />
+                        <span className="font-semibold text-sm">Employee</span>
+                      </div>
+                    </div>
+                  </label>
                 </div>
+              </div>
 
-                <div className="text-center">
-                  <p className="text-blue-200 text-sm">
-                    Don't have an account?{' '}
-                    <Link to="/register" className="text-white hover:text-blue-400 font-semibold transition-colors hover:underline">
-                      Sign Up
-                    </Link>
-                  </p>
+              <div className="flex justify-center pt-2">
+                <button
+                  type="button"
+                  onClick={submitHandler}
+                  disabled={isLoading}
+                  className="w-full max-w-xs bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 group"
+                >
+                  {isLoading ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      <span>Signing In...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Sign In</span>
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <div className="relative flex items-center justify-center py-2">
+                <div className="absolute inset-0 flex items-center px-8">
+                  <div className="w-full border-t border-white/20"></div>
                 </div>
+                <div className="relative px-4 bg-blue-900">
+                  <span className="text-sm text-blue-200">or</span>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <p className="text-blue-200 text-sm">
+                  Don't have an account?{' '}
+                  <Link to="/register" className="text-white hover:text-blue-400 font-semibold transition-colors hover:underline">
+                    Sign Up
+                  </Link>
+                </p>
               </div>
             </div>
           </div>
-
-          <div className="w-full lg:w-[40%] mt-8 lg:mt-0 lg:ml-8">
-            <div className="bg-blue-950/70 backdrop-blur-md rounded-2xl border border-white/10 shadow-lg p-6">
-              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                <Info size={20} className="text-blue-300" />
-                Demo Credentials
-              </h3>
-              <div className="space-y-4 text-sm">
-                <div>
-                  <p className="font-medium text-blue-200">Admin:</p>
-                  <p className="text-white break-words">Email: <span className="font-mono">admin@example.com</span></p>
-                  <p className="text-white">Password: <span className="font-mono">admin123</span></p>
-                </div>
-                <div>
-                  <p className="font-medium text-blue-200">Employee:</p>
-                  <p className="text-white break-words">Email: <span className="font-mono">employee@example.com</span></p>
-                  <p className="text-white">Password: <span className="font-mono">employee123</span></p>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
+
+        {/* Demo Credentials Section - Positioned Absolutely */}
+        {/* Changed positioning here */}
+        <div className="fixed top-1/2 right-4 transform -translate-y-1/2 hidden lg:block w-auto max-w-xs z-20"> {/* Fixed position, hidden on small screens */}
+          <div className="bg-blue-950/70 backdrop-blur-md rounded-2xl border border-white/10 shadow-lg p-6">
+            <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <Info size={20} className="text-blue-300" />
+              Demo Credentials
+            </h3>
+            <div className="space-y-4 text-sm">
+              <div>
+                <p className="font-medium text-blue-200">Admin:</p>
+                <p className="text-white break-words">Email: <span className="font-mono">admin@example.com</span></p>
+                <p className="text-white">Password: <span className="font-mono">admin123</span></p>
+              </div>
+              <div>
+                <p className="font-medium text-blue-200">Employee:</p>
+                <p className="text-white break-words">Email: <span className="font-mono">employee@example.com</span></p>
+                <p className="text-white">Password: <span className="font-mono">employee123</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </main>
 
       <footer className="relative z-10 bg-blue-900 backdrop-blur-xl border-t border-white/10 mt-auto">
