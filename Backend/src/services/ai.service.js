@@ -194,99 +194,163 @@
 
 // export default generateContent;
 
+// import { GoogleGenerativeAI } from "@google/generative-ai";
+// import dotenv from 'dotenv';
+// dotenv.config();
+
+// if (!process.env.GOOGLE_GEMINI_KEY) {
+//   console.error("ERROR: GOOGLE_GEMINI_KEY not found in environment variables");
+//   throw new Error("GOOGLE_GEMINI_KEY is required");
+// }
+
+// console.log("Initializing Gemini with API key:", process.env.GOOGLE_GEMINI_KEY.substring(0, 10) + "...");
+
+// const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_KEY);
+
+// async function generateContent(input) {
+//   try {
+//     console.log("=== Starting Gemini Generation ===");
+//     console.log("Input type:", typeof input);
+    
+//     // For text input
+//     if (typeof input === "string") {
+//       console.log("Processing text input...");
+      
+//       const model = genAI.getGenerativeModel({ 
+//         model: "gemini-1.5-flash",
+//         generationConfig: {
+//           temperature: 0.7,
+//           topK: 40,
+//           topP: 0.95,
+//           maxOutputTokens: 2048,
+//         }
+//       });
+      
+//       const result = await model.generateContent(input);
+//       const response = await result.response;
+//       const text = response.text();
+      
+//       console.log("Text generation successful");
+//       return text;
+//     }
+
+//     // For image input
+//     if (input.type === "image") {
+//       console.log("Processing image input...");
+      
+//       const model = genAI.getGenerativeModel({ 
+//         model: "gemini-1.5-flash",
+//         generationConfig: {
+//           temperature: 0.7,
+//           topK: 40,
+//           topP: 0.95,
+//           maxOutputTokens: 2048,
+//         }
+//       });
+      
+//       const { base64Image, mimeType = "image/png", prompt = "", description = "" } = input;
+      
+//       const imagePart = {
+//         inlineData: {
+//           data: base64Image,
+//           mimeType: mimeType
+//         }
+//       };
+      
+//       const textPart = {
+//         text: `${description}\n${prompt}`.trim()
+//       };
+      
+//       const result = await model.generateContent([textPart, imagePart]);
+//       const response = await result.response;
+//       const text = response.text();
+      
+//       console.log("Image generation successful");
+//       return text;
+//     }
+
+//     throw new Error("Invalid input format for AI content generation.");
+    
+//   } catch (err) {
+//     console.error("=== Gemini Generation Error ===");
+//     console.error("Error name:", err.name);
+//     console.error("Error message:", err.message);
+//     console.error("Error status:", err.status);
+//     console.error("Error details:", err.details);
+    
+//     if (err.message && err.message.includes("API key")) {
+//       throw new Error("Invalid API key. Please check your GOOGLE_GEMINI_KEY environment variable.");
+//     }
+    
+//     if (err.message && err.message.includes("404")) {
+//       throw new Error("Model not found. This might be an API version issue. Please contact support.");
+//     }
+    
+//     throw new Error(`Gemini API Error: ${err.message}`);
+//   }
+// }
+
+// export default generateContent;
+
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from 'dotenv';
 dotenv.config();
 
-if (!process.env.GOOGLE_GEMINI_KEY) {
-  console.error("ERROR: GOOGLE_GEMINI_KEY not found in environment variables");
-  throw new Error("GOOGLE_GEMINI_KEY is required");
-}
-
-console.log("Initializing Gemini with API key:", process.env.GOOGLE_GEMINI_KEY.substring(0, 10) + "...");
-
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_KEY);
+
+// WORKAROUND: Use older models that work with the v1beta API
+const flashModel = genAI.getGenerativeModel({
+  model: "gemini-pro", // Changed from gemini-1.5-flash
+  systemInstruction: `
+You are an AI assistant in the Workflo task management system, created by Vineet. You help analyze task context, uploaded files, and provide concise, professional feedback for employees and admins.
+... (rest of your system instructions) ...
+`
+});
+
+// WORKAROUND: Use older vision model that works with the v1beta API
+const visionModel = genAI.getGenerativeModel({
+  model: "gemini-pro-vision", // Changed from gemini-1.5-flash
+  systemInstruction: `
+You are an AI assistant in the Workflo task management system, created by Vineet. You help analyze task context, uploaded files, and provide concise, professional feedback for employees and admins.
+... (rest of your system instructions) ...
+`
+});
 
 async function generateContent(input) {
   try {
-    console.log("=== Starting Gemini Generation ===");
-    console.log("Input type:", typeof input);
-    
-    // For text input
     if (typeof input === "string") {
-      console.log("Processing text input...");
-      
-      const model = genAI.getGenerativeModel({ 
-        model: "gemini-1.5-flash",
-        generationConfig: {
-          temperature: 0.7,
-          topK: 40,
-          topP: 0.95,
-          maxOutputTokens: 2048,
-        }
-      });
-      
-      const result = await model.generateContent(input);
-      const response = await result.response;
-      const text = response.text();
-      
-      console.log("Text generation successful");
-      return text;
+      const result = await flashModel.generateContent(input);
+      return result.response.text();
     }
 
-    // For image input
     if (input.type === "image") {
-      console.log("Processing image input...");
-      
-      const model = genAI.getGenerativeModel({ 
-        model: "gemini-1.5-flash",
-        generationConfig: {
-          temperature: 0.7,
-          topK: 40,
-          topP: 0.95,
-          maxOutputTokens: 2048,
-        }
-      });
-      
       const { base64Image, mimeType = "image/png", prompt = "", description = "" } = input;
-      
-      const imagePart = {
-        inlineData: {
-          data: base64Image,
-          mimeType: mimeType
-        }
-      };
-      
-      const textPart = {
-        text: `${description}\n${prompt}`.trim()
-      };
-      
-      const result = await model.generateContent([textPart, imagePart]);
-      const response = await result.response;
-      const text = response.text();
-      
-      console.log("Image generation successful");
-      return text;
+
+      const result = await visionModel.generateContent({
+        contents: [
+          {
+            parts: [
+              {
+                inlineData: {
+                  data: base64Image,
+                  mimeType: mimeType
+                }
+              },
+              {
+                text: `${description}\n${prompt}`.trim()
+              }
+            ]
+          }
+        ]
+      });
+
+      return result.response.text();
     }
 
     throw new Error("Invalid input format for AI content generation.");
-    
   } catch (err) {
-    console.error("=== Gemini Generation Error ===");
-    console.error("Error name:", err.name);
-    console.error("Error message:", err.message);
-    console.error("Error status:", err.status);
-    console.error("Error details:", err.details);
-    
-    if (err.message && err.message.includes("API key")) {
-      throw new Error("Invalid API key. Please check your GOOGLE_GEMINI_KEY environment variable.");
-    }
-    
-    if (err.message && err.message.includes("404")) {
-      throw new Error("Model not found. This might be an API version issue. Please contact support.");
-    }
-    
-    throw new Error(`Gemini API Error: ${err.message}`);
+    console.error("Gemini generation error:", err.message);
+    throw err;
   }
 }
 
