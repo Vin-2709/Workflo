@@ -45,7 +45,7 @@ Admins see a table of all assigned tasks; Employees see a card view of their per
 
 ### Home & Auth
 
-#### * Landing Page
+* *Landing Page*
 
 <img width="1849" height="1014" alt="Screenshot 2025-11-01 230833" src="https://github.com/user-attachments/assets/224e6e7a-f8b5-422b-bed2-b41fe2c9e7d0" />
 
@@ -55,7 +55,7 @@ Admins see a table of all assigned tasks; Employees see a card view of their per
 
 
 
-#### Login & Register
+* *Login & Register*
 
 <img width="1884" height="1026" alt="image" src="https://github.com/user-attachments/assets/5a9ca1e5-ce2e-426e-86a2-44b16158cf89" />
 
@@ -65,7 +65,7 @@ Admins see a table of all assigned tasks; Employees see a card view of their per
 
 ### Admin Features
 
-#### Admin Dashboard (Overview & Task List)
+* *Admin Dashboard (Overview & Task List)*
 
 <img width="1870" height="1020" alt="Screenshot 2025-11-01 231255" src="https://github.com/user-attachments/assets/e83888b0-fb83-42c3-a393-72fbc47d3223" />
 
@@ -98,7 +98,7 @@ Admins see a table of all assigned tasks; Employees see a card view of their per
 
 ### Employee Features
 
-#### Employee Dashboard (Task Cards)
+* *Employee Dashboard (Task Cards)*
 
 <img width="1865" height="1013" alt="image" src="https://github.com/user-attachments/assets/f59dda6d-cb0d-4042-9a22-dbbcce460d30" />
 
