@@ -48,72 +48,71 @@ Admins see a table of all assigned tasks; Employees see a card view of their per
  * *Landing Page*
 
 <img width="1849" height="1014" alt="Screenshot 2025-11-01 230833" src="https://github.com/user-attachments/assets/224e6e7a-f8b5-422b-bed2-b41fe2c9e7d0" />
-
+<br>
 
 <img width="1849" height="946" alt="image" src="https://github.com/user-attachments/assets/e65f98b1-5d45-4468-9634-ebd2f195936c" />
 
-
+<br>
 <img width="1872" height="925" alt="Screenshot 2025-11-01 231020" src="https://github.com/user-attachments/assets/9b4eedc7-315f-49ca-ad6e-fbe07a77e99a" />
+<br>
 
-
-
- * *Login & Register*
+### Login & Register
 
 <img width="1884" height="1026" alt="image" src="https://github.com/user-attachments/assets/5a9ca1e5-ce2e-426e-86a2-44b16158cf89" />
-
+<br>
 <img width="1861" height="1008" alt="image" src="https://github.com/user-attachments/assets/b052dd8f-f0d3-4dea-860f-73e140b8096c" />
 
 
-
+<br>
 ### Admin Features
 
  * *Admin Dashboard (Overview & Task List)*
 
 <img width="1870" height="1020" alt="Screenshot 2025-11-01 231255" src="https://github.com/user-attachments/assets/e83888b0-fb83-42c3-a393-72fbc47d3223" />
-
+<br>
 <img width="1864" height="1026" alt="image" src="https://github.com/user-attachments/assets/8c791721-20a7-470f-82e6-abc435cddd64" />
 
 
-
+<br>
  * *Assign Task Modal*
 
 <img width="1857" height="1008" alt="image" src="https://github.com/user-attachments/assets/f23c413d-885a-4993-9132-a286082a2706" />
 
-
+<br>
  * *Edit Task Modal* 
 
 <img width="1851" height="1021" alt="image" src="https://github.com/user-attachments/assets/e8567272-7169-42c3-bf76-6981cebad6fb" />
 
-
+<br>
  * *Admin Manage Files & Comments*
 
 <img width="1231" height="1025" alt="image" src="https://github.com/user-attachments/assets/6700cb56-dcc6-4e68-b8bb-92ebd7261c33" />
 
-
+<br>
  * *Admin AI Assistant*
 
 <img width="1078" height="989" alt="image" src="https://github.com/user-attachments/assets/9b79f50a-4704-4049-bddf-fcfaba7cedfd" />
-
+<br>
 <img width="1225" height="996" alt="image" src="https://github.com/user-attachments/assets/7c7e5242-42d9-4eff-9010-471a07547216" />
 
 
-
+<br>
 ### Employee Features
-
+<br>
 * *Employee Dashboard (Task Cards)*
 
 <img width="1865" height="1013" alt="image" src="https://github.com/user-attachments/assets/f59dda6d-cb0d-4042-9a22-dbbcce460d30" />
 
-
+<br>
 #### Employee Manage Files & Comments
 
 <img width="1214" height="1017" alt="image" src="https://github.com/user-attachments/assets/050419bd-2532-4722-94b3-81747953fb64" />
-
+<br>
 
 #### Employee AI Assistant
 
 <img width="909" height="938" alt="image" src="https://github.com/user-attachments/assets/9effffdd-89b2-4a77-9da0-b80899064e05" />
-
+<br>
 <img width="986" height="1007" alt="image" src="https://github.com/user-attachments/assets/880b1360-a36d-4f81-89cd-c3fdf619abb8" />
 
 
