@@ -42,6 +42,7 @@ Displays task statistics (Active, Completed, Failed).
 Admins see a table of all assigned tasks; Employees see a card view of their personal tasks.
 
 ## 📸 Screenshots & Functionality
+
 ### Home & Auth
 
 #### Landing Page
@@ -72,24 +73,25 @@ Admins see a table of all assigned tasks; Employees see a card view of their per
 
 
 
-### Assign Task Modal
+#### Assign Task Modal
 
 <img width="1857" height="1008" alt="image" src="https://github.com/user-attachments/assets/f23c413d-885a-4993-9132-a286082a2706" />
 
 
-### Edit Task Modal
+#### Edit Task Modal
 
 <img width="1851" height="1021" alt="image" src="https://github.com/user-attachments/assets/e8567272-7169-42c3-bf76-6981cebad6fb" />
 
 
-### Admin Manage Files & Comments
+#### Admin Manage Files & Comments
 
 <img width="1231" height="1025" alt="image" src="https://github.com/user-attachments/assets/6700cb56-dcc6-4e68-b8bb-92ebd7261c33" />
 
 
-### Admin AI Assistant
+#### Admin AI Assistant
 
 <img width="1078" height="989" alt="image" src="https://github.com/user-attachments/assets/9b79f50a-4704-4049-bddf-fcfaba7cedfd" />
+
 <img width="1225" height="996" alt="image" src="https://github.com/user-attachments/assets/7c7e5242-42d9-4eff-9010-471a07547216" />
 
 
