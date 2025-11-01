@@ -45,7 +45,7 @@ Admins see a table of all assigned tasks; Employees see a card view of their per
 
 ### Home & Auth
 
-* Landing Page
+#### * Landing Page
 
 <img width="1849" height="1014" alt="Screenshot 2025-11-01 230833" src="https://github.com/user-attachments/assets/224e6e7a-f8b5-422b-bed2-b41fe2c9e7d0" />
 
