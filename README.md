@@ -45,17 +45,19 @@ Admins see a table of all assigned tasks; Employees see a card view of their per
 
 ### Home & Auth
 
-* *Landing Page*
+ * *Landing Page*
 
 <img width="1849" height="1014" alt="Screenshot 2025-11-01 230833" src="https://github.com/user-attachments/assets/224e6e7a-f8b5-422b-bed2-b41fe2c9e7d0" />
 
-<img width="1864" height="1025" alt="Screenshot 2025-11-01 230850" src="https://github.com/user-attachments/assets/cf01d88a-2cee-46c3-a804-d47e6f1fb52c" />
+
+<img width="1849" height="946" alt="image" src="https://github.com/user-attachments/assets/e65f98b1-5d45-4468-9634-ebd2f195936c" />
+
 
 <img width="1872" height="925" alt="Screenshot 2025-11-01 231020" src="https://github.com/user-attachments/assets/9b4eedc7-315f-49ca-ad6e-fbe07a77e99a" />
 
 
 
-* *Login & Register*
+ * *Login & Register*
 
 <img width="1884" height="1026" alt="image" src="https://github.com/user-attachments/assets/5a9ca1e5-ce2e-426e-86a2-44b16158cf89" />
 
@@ -65,7 +67,7 @@ Admins see a table of all assigned tasks; Employees see a card view of their per
 
 ### Admin Features
 
-* *Admin Dashboard (Overview & Task List)*
+ * *Admin Dashboard (Overview & Task List)*
 
 <img width="1870" height="1020" alt="Screenshot 2025-11-01 231255" src="https://github.com/user-attachments/assets/e83888b0-fb83-42c3-a393-72fbc47d3223" />
 
@@ -73,22 +75,22 @@ Admins see a table of all assigned tasks; Employees see a card view of their per
 
 
 
-#### Assign Task Modal
+ * *Assign Task Modal*
 
 <img width="1857" height="1008" alt="image" src="https://github.com/user-attachments/assets/f23c413d-885a-4993-9132-a286082a2706" />
 
 
-#### Edit Task Modal
+ * *Edit Task Modal* 
 
 <img width="1851" height="1021" alt="image" src="https://github.com/user-attachments/assets/e8567272-7169-42c3-bf76-6981cebad6fb" />
 
 
-#### Admin Manage Files & Comments
+ * *Admin Manage Files & Comments*
 
 <img width="1231" height="1025" alt="image" src="https://github.com/user-attachments/assets/6700cb56-dcc6-4e68-b8bb-92ebd7261c33" />
 
 
-#### Admin AI Assistant
+ * *Admin AI Assistant*
 
 <img width="1078" height="989" alt="image" src="https://github.com/user-attachments/assets/9b79f50a-4704-4049-bddf-fcfaba7cedfd" />
 
