@@ -71,18 +71,6 @@ const Login = ({ loggedinuser }) => {
 
       <main className="relative z-10 flex items-center justify-center min-h-[calc(100vh-160px)] px-6 py-12">
         <div className="flex flex-col w-full max-w-[35vw]">
-          {/* Server Notice - Added at the top */}
-          <div className="bg-amber-900/80 backdrop-blur-2xl rounded-2xl border border-amber-500/30 shadow-xl p-4 mb-6">
-            <div className="flex items-center gap-2 mb-2">
-              <Clock className="w-5 h-5 text-amber-300" />
-              <h3 className="text-base font-bold text-white">Please Note</h3>
-            </div>
-            <p className="text-amber-100 text-sm leading-relaxed">
-              First-time login may take 30-60 seconds due to server limitations on Render's free tier. 
-              The backend spins down after periods of inactivity and needs time to restart. Thank you for your patience!
-            </p>
-          </div>
-
           <div className="bg-blue-900 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
             <div className="px-8 pt-8 pb-8 space-y-6">
               <div className="text-center">
@@ -220,6 +208,18 @@ const Login = ({ loggedinuser }) => {
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* Server Notice - Added at the bottom */}
+          <div className="bg-amber-900/80 backdrop-blur-2xl rounded-2xl border border-amber-500/30 shadow-xl p-4 mt-6">
+            <div className="flex items-center gap-2 mb-2">
+              <Clock className="w-5 h-5 text-amber-300" />
+              <h3 className="text-base font-bold text-white">Please Note</h3>
+            </div>
+            <p className="text-amber-100 text-sm leading-relaxed">
+              First-time login may take 30-60 seconds due to server limitations on Render's free tier. 
+              The backend spins down after periods of inactivity and needs time to restart. Thank you for your patience!
+            </p>
           </div>
         </div>
       </main>
