@@ -9,6 +9,8 @@ import taskRoutes      from './routes/task.routes.js';
 import uploadRoutes    from './routes/upload.routes.js';
 import aiRoutes        from './routes/ai.routes.js';
 import commentRoutes   from './routes/comment.routes.js';
+import { isLogged } from './middlewares/auth.middleware.js'; 
+import { authorizeRole } from './middlewares/auth.middleware.js';
 
 dotenv.config();
 
@@ -25,8 +27,8 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Task Management API' });
 });
 app.use('/', authRoutes);
-app.use('/admin', adminRoutes);
-app.use('/employee', employeeRoutes);
+app.use('/admin', isLogged, authorizeRole('admin'), adminRoutes);
+app.use('/employee', isLogged, authorizeRole('employee'),employeeRoutes);
 app.use('/', taskRoutes);
 app.use('/', uploadRoutes);
 app.use('/', aiRoutes);
