@@ -111,10 +111,11 @@ export const login = async (req, res) => {
         }
 
         const tokenData = {
-            userId: user._id
+            userId: user._id,
+            role:user.role
         };
 
-        const token = await jwt.sign(tokenData, process.env.SECRET_KEY, {expiresIn: '1d'});
+        const token = await jwt.sign(tokenData, process.env.SECRET_KEY, {expiresIn: '1h'});
 
         console.log("Login successful, returning user:", user);
 
@@ -123,7 +124,7 @@ export const login = async (req, res) => {
             httpOnly: true,
             sameSite: 'none',
             secure: true,
-            maxAge: 24 * 60 * 60 * 1000
+            maxAge: 60 * 60 * 1000
         }).json({
             message: "User found",
             success: true,
