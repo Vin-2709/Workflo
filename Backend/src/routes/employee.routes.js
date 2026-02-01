@@ -4,7 +4,7 @@ import { isLogged } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
-router.get('/:id', isLogged, getEmployeeProfile);
-router.get('/gettask/:id', isLogged, getEmployeeTasks);
+router.get('/:id', getEmployeeProfile);
+router.get('/gettask/:id', getEmployeeTasks);
 
 export default router;
