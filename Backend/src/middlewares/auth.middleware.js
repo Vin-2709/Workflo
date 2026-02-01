@@ -25,3 +25,15 @@ export const isLogged = (req, res, next) => {
         });
     }
 };
+export const authorizeRole = (requiredRole) => {
+    return (req, res, next) => {
+        // req.user is populated by your existing isLogged middleware
+        if (!req.user || req.user.role !== requiredRole) {
+            return res.status(403).json({
+                message: `Access denied: ${requiredRole} role required`,
+                success: false
+            });
+        }
+        next();
+    };
+};
