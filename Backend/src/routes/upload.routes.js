@@ -1,5 +1,4 @@
 import express from 'express';
-import { adminUpload, employeeUpload } from '../controllers/upload.controller.js';
 import { isLogged } from '../middlewares/auth.middleware.js';
 import { Uploadmulter } from '../middlewares/multer.js';
 import { adminUpload, employeeUpload, deleteFile } from '../controllers/upload.controller.js';
