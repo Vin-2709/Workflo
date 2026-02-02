@@ -30,7 +30,7 @@ app.use('/', authRoutes);
 app.use('/admin', isLogged, authorizeRole('admin'), adminRoutes);
 app.use('/employee', isLogged, authorizeRole('employee'),employeeRoutes);
 app.use('/', taskRoutes);
-app.use('/', uploadRoutes);
+app.use('/upload', uploadRoutes);
 app.use('/', aiRoutes);
 app.use('/', commentRoutes);
 
