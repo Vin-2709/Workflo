@@ -1,5 +1,6 @@
 import taskmodel from '../models/task.js';
 import { Uploadcloudinary } from '../utils/cloudinary.js';
+import { DeleteFromCloudinary } from '../utils/cloudinary.js'; 
 
 export const adminUpload = async (req, res) => {
     try {
@@ -106,5 +107,48 @@ export const employeeUpload = async (req, res) => {
             success: false, 
             message: "Error uploading files: " + error.message 
         });
+    }
+};
+
+export const deleteFile = async (req, res) => {
+    try {
+        const { taskId } = req.params;
+        const { fileUrl } = req.body; 
+        const userRole = req.user.role;
+
+        const task = await taskmodel.findById(taskId);
+        if (!task) {
+            return res.status(404).json({ success: false, message: "Task not found" });
+        }
+
+        let fileArrayPath = "";
+        if (userRole === 'admin') {
+            if (!task.adminFiles.includes(fileUrl)) {
+                return res.status(403).json({ success: false, message: "Unauthorized: Admin can only delete their own files" });
+            }
+            fileArrayPath = "adminFiles";
+        } else if (userRole === 'employee') {
+            if (!task.employeeFiles.includes(fileUrl)) {
+                return res.status(403).json({ success: false, message: "Unauthorized: Employee can only delete their own files" });
+            }
+            fileArrayPath = "employeeFiles";
+        }
+
+        const cloudinaryRes = await DeleteFromCloudinary(fileUrl);
+        
+        if (cloudinaryRes.result === 'ok' || cloudinaryRes.result === 'not_found') {
+            // 2. Remove from MongoDB using $pull
+            await taskmodel.findByIdAndUpdate(taskId, {
+                $pull: { [fileArrayPath]: fileUrl }
+            });
+
+            return res.json({ success: true, message: "File deleted successfully" });
+        }
+
+        res.status(500).json({ success: false, message: "Failed to delete from Cloudinary" });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server Error" });
     }
 };
